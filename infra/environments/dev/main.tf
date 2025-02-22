@@ -21,7 +21,7 @@ module "lambda" {
     # tag_environment = var.environment
 }
 
-module "apigatway" {
+module "apigateway" {
   source = "../../modules/apigateway"
   depends_on = [ module.sqs ]
   # greeting_queue_name = module.sqs.greeting_queue_name
