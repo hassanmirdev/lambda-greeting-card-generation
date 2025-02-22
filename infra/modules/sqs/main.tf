@@ -49,12 +49,21 @@ data "aws_caller_identity" "current" {}
 
 # Create an integration that sends incoming request body as a message to SQS
 resource "aws_api_gateway_integration" "greet_method_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.greeting_api.id
-  resource_id             = aws_api_gateway_resource.greet_resource.id
-  http_method             = aws_api_gateway_method.greet_method.http_method
-  type                    = "AWS"
+  # rest_api_id             = aws_api_gateway_rest_api.greeting_api.id
+  # resource_id             = aws_api_gateway_resource.greet_resource.id
+  # http_method             = aws_api_gateway_method.greet_method.http_method
+  # type                    = "AWS"
+  # integration_http_method = "POST"
+
+  rest_api_id   = module.apigateway.greeting_api_rest_api_id
+  resource_id   = module.apigateway.greeting_api_resource_id
+  http_method   = module.apigateway.greeting_api_method_http
   integration_http_method = "POST"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sqs:path/${data.aws_caller_identity.current.account_id}/${aws_sqs_queue.greeting_queue.name}"
+  type                    = "AWS_PROXY"
+  uri                     = module.apigateway.greeting_lambda_invoke_arn
+
+  depends_on = [aws_lambda_permission.allow_api_gateway]
+  # uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:sqs:path/${data.aws_caller_identity.current.account_id}/${aws_sqs_queue.greeting_queue.name}"
   request_parameters = {
     "integration.request.header.Content-Type" = "'application/x-www-form-urlencoded'"
   }
