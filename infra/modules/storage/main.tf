@@ -34,7 +34,7 @@ bucket = var.dst_bucket_name
     environment = var.tag_environment
   }
 
-
+}
 # ensures that bucket cannot be accessed without proper permissions.
 
 resource "aws_s3_bucket_ownership_controls" "dst_bucket_ownership_controls" {
