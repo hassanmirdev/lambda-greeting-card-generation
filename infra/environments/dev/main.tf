@@ -12,13 +12,13 @@ module "sqs" {
 module "lambda" { 
     source = "../../modules/lambda"
     depends_on = [ module.storage, module.sqs ]
-    src_bucket_arn = module.storage.src_bucket_arn
-    src_bucket_id = module.storage.src_bucket_id
-    dst_bucket_arn = module.storage.dst_bucket_arn
-    dst_bucket_id = module.storage.dst_bucket_id
-    greeting_queue_arn = module.sqs.greeting_queue_arn
-    lambda_memory_size = var.lambda_memory_size
-    tag_environment = var.environment
+    # src_bucket_arn = module.storage.src_bucket_arn
+    # src_bucket_id = module.storage.src_bucket_id
+    # dst_bucket_arn = module.storage.dst_bucket_arn
+    # dst_bucket_id = module.storage.dst_bucket_id
+    # greeting_queue_arn = module.sqs.greeting_queue_arn
+    # lambda_memory_size = var.lambda_memory_size
+    # tag_environment = var.environment
 }
 
 module "apigatway" {
