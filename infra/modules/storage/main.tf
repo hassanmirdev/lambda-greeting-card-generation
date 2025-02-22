@@ -1,7 +1,11 @@
 # Bucket 1: create source bucket, This bucket is used for storing the source images for employees
 
 resource "aws_s3_bucket" "src_bucket" {
-  bucket = "buckettostoreemployeeimages"
+  bucket = var.src_bucket_name
+  tags = {
+    environment = var.tag_environment
+  }
+
 }
 
 # ensures that bucket cannot be accessed without proper permissions.
@@ -24,8 +28,12 @@ resource "aws_s3_bucket_acl" "src_bucket_acl" {
 # Bucket 2: create destination bucket, This bucket will be used to store the generated greeting cards.
 
 resource "aws_s3_bucket" "dst_bucket" {
-  bucket = "buckettostoregreetingcards"
-}
+bucket = var.dst_bucket_name
+
+  tags = {
+    environment = var.tag_environment
+  }
+
 
 # ensures that bucket cannot be accessed without proper permissions.
 
