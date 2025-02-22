@@ -2,7 +2,7 @@ module "storage" {
   source          = "../../modules/storage"
   src_bucket_name = "buckettostoreemployeeimages"
   dst_bucket_name = "buckettostoregreetingcards"
-  tag_environment = var.environment
+ # tag_environment = var.environment
 }
 
 module "sqs" {
@@ -24,9 +24,9 @@ module "lambda" {
 module "apigatway" {
   source = "../../modules/api"
   depends_on = [ module.sqs ]
-  greeting_queue_name = module.sqs.greeting_queue_name
-  greeting_queue_arn = module.sqs.greeting_queue_arn
-  tag_environment = var.environment
+  # greeting_queue_name = module.sqs.greeting_queue_name
+  # greeting_queue_arn = module.sqs.greeting_queue_arn
+ # tag_environment = var.environment
 }
 
 output "greeting_api_endpoint" {
